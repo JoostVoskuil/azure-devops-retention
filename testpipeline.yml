@@ -1,0 +1,12 @@
+name: '0.1$(rev:.r)'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Retention@0
+  inputs:
+    tags: 'tag1, tag2'
+    tagtype: 'pipeline'
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)

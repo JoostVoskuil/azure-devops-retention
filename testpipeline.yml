@@ -5,7 +5,6 @@ pool:
 
 steps:
 - task: Retention@1
-  inputs:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'

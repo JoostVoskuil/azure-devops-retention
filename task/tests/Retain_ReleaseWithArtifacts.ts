@@ -20,6 +20,7 @@ process.env['SYSTEM_HOSTTYPE'] = 'deployment'
 process.env['RELEASE_RELEASEID'] = releaseId.toString();
 process.env['RELEASE_ARTIFACTS_BUILD_BUILDID'] = '123';
 process.env['RELEASE_ARTIFACTS_BUILD_DEFINITIONID'] = '321';
+process.env['SYSTEM_DEFINITIONNAME'] = "definitionName";
 
 // System_AccessToken
 process.env['ENDPOINT_AUTH_SCHEME_SYSTEMVSSCONNECTION'] = 'OAuth'

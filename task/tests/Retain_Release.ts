@@ -18,6 +18,7 @@ tmr.setInput('months', months.toString());
 process.env['SYSTEM_TEAMPROJECT'] = teamProject
 process.env['SYSTEM_HOSTTYPE'] = 'deployment'
 process.env['RELEASE_RELEASEID'] = releaseId.toString();
+process.env['SYSTEM_DEFINITIONNAME'] = "definitionName";
 
 // System_AccessToken
 process.env['ENDPOINT_AUTH_SCHEME_SYSTEMVSSCONNECTION'] = 'OAuth'

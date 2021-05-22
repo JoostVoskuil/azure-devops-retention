@@ -20,6 +20,7 @@
             "name": "months",
             "type": "number",
             "label": "Pipeline: Number of months to retain",
+            "defaultValue": 0,
             "helpMarkDown": "Specify the number of months to retain the build.",
             "required": false
         },

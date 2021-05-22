@@ -27,7 +27,7 @@ async function run() {
             const definitionId = Number(tl.getVariable('System.DefinitionId'));
             const numberOfMonthsToRetain = Number(getAzureDevOpsInput('months'));
             const daysValid = calculateDaysValid(numberOfMonthsToRetain);
-            const owner = `Pipeline:Set by Retention Task`;
+            const owner = `Pipeline:Retention Task`;
             await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
             break;
          }
@@ -89,7 +89,7 @@ async function setBuildRetentionLease(teamProject: string, runId: number, defini
    });
    const buildApi: ba.IBuildApi = await connection.getBuildApi();
    await buildApi.addRetentionLeases(retentionLease, teamProject);
-   console.log(`Retained pipeline run ${runId}', including its tests and artifacts.`);
+   console.log(`Retained pipeline run ${runId}, including its tests and artifacts.`);
 }
 
 function calculateDaysValid(numberOfMonths: number): number {

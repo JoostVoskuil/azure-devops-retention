@@ -27,7 +27,7 @@ async function run() {
             const definitionId = Number(tl.getVariable('System.DefinitionId'));
             const numberOfMonthsToRetain = Number(getAzureDevOpsInput('months'));
             const daysValid = calculateDaysValid(numberOfMonthsToRetain);
-            const owner = getOwner();
+            const owner = `Pipeline:${getOwner()}`;
             await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
             break;
          }
@@ -73,7 +73,7 @@ async function retainReleaseBuildArtifacts(teamProject: string, releaseId: numbe
       const buildId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.BuildId`));
       const definitionId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.DefinitionId`));
       const daysValid = calculateDaysValid(30*12)
-      const owner = `Retained by Release ${definitionName} / ${releaseId}.`
+      const owner = `Release:Retained by Release Pipeline '${definitionName}' / '${releaseId}'.`
       await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
    }
 }

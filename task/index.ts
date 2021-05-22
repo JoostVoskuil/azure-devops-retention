@@ -26,7 +26,11 @@ async function run() {
             const buildId = Number(getAzureDevOpsVariable('Build.BuildId'));
             const definitionId = Number(tl.getVariable('System.DefinitionId'));
             const numberOfMonthsToRetain = Number(getAzureDevOpsInput('months'));
-            const daysValid = calculateDaysValid(numberOfMonthsToRetain);
+            
+            let daysValid = 0;
+            if (numberOfMonthsToRetain === 0) daysValid = calculateDaysForever();
+            else daysValid = calculateDaysValid(numberOfMonthsToRetain);
+
             const owner = `Pipeline:Retention Task`;
             await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
             break;

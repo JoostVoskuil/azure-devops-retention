@@ -17,6 +17,9 @@ When the option 'retainbuilds' is set to true, this also set the retention for t
 
 ```yaml
 - task: Retention@1
+  inputs:
+    months: '36'
+    retainbuilds: false
    env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 ```

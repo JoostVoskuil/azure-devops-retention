@@ -19,7 +19,6 @@ When the option 'retainbuilds' is set to true, this also set the retention for t
 - task: Retention@1
   inputs:
     months: '36'
-    retainbuilds: false
 ```
 
 ## Arguments
@@ -27,7 +26,7 @@ When the option 'retainbuilds' is set to true, this also set the retention for t
 | Name         | Applies to | Default value                     | Description                                                                        |
 | ------------ | ---------- | --------------------------------- | ---------------------------------------------------------------------------------- |
 | months       | Pipelines  | 36 months                         | Set the lease period in number of Months. After this amount, the lease is deleted. |
-| retainbuilds | Release    | true                              | When set to true, this also retains the associated builds for 30 years             |
+| retainbuilds | Release    | true                              | When set to true, this also retains the associated builds for indefinitely             |
 
 ## Permissions for Releases
 

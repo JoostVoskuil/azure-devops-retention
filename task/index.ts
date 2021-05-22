@@ -73,7 +73,7 @@ async function retainReleaseBuildArtifacts(teamProject: string, releaseId: numbe
       const buildId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.BuildId`));
       const definitionId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.DefinitionId`));
       const daysValid = calculateDaysValid(30*12)
-      const owner = `Release:Retained by Release Pipeline '${definitionName}' / '${releaseId}'.`
+      const owner = `RM:'${definitionName}' / '${releaseId}'.`
       await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
    }
 }

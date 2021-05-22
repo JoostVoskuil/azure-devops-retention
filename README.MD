@@ -11,7 +11,7 @@ This also protects the pipeline for being deleted.
 ## Releases
 
 Releases are retained with a retain indefinitely flag. The release will never be deleted.
-When the option 'retainbuilds' is set to true, this also set the retention for the builds. Since builds work with the lease, the leasperiod is set to 30 years.
+When the option 'retainbuilds' is set to true, this also set the retention for the builds to indefinitely.
 
 ## YAML Snippet
 
@@ -21,10 +21,10 @@ When the option 'retainbuilds' is set to true, this also set the retention for t
 
 ## Arguments
 
-| Name         | Applies to | Default value                     | Description                                                                        |
-| ------------ | ---------- | --------------------------------- | ---------------------------------------------------------------------------------- |
-| months       | Pipelines  |  Indefinitely                       | Set the lease period in number of Months. After this amount, the lease is deleted. Set to 0 for indefinitely |
-| retainbuilds | Release    | true                              | When set to true, this also retains the associated builds for indefinitely             |
+| Name         | Applies to | Default value    | Description                                                                                                  |
+| ------------ | ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| months       | Pipelines  | 0 (Indefinitely) | Set the lease period in number of Months. After this amount, the lease is deleted. Set to 0 for indefinitely |
+| retainbuilds | Release    | true             | When set to true, this also retains the associated builds for indefinitely                                   |
 
 ## Permissions for Releases
 

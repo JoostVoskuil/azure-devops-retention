@@ -31,7 +31,7 @@ async function run() {
             if (numberOfMonthsToRetain === 0) daysValid = calculateDaysForever();
             else daysValid = calculateDaysValid(numberOfMonthsToRetain);
 
-            const owner = `Pipeline:Retention Task`;
+            const owner = `Pipeline:'Retention Task'`;
             await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
             break;
          }

@@ -28,7 +28,7 @@
             "name": "retainbuilds",
             "type": "boolean",
             "label": "Release: Retain Artifacs",
-            "defaultValue": false,
+            "defaultValue": true,
             "helpMarkDown": "Retains the builds (incl. artifacts) for the release that is deployed.",
             "required": false
         }

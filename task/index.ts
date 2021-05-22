@@ -34,9 +34,10 @@ async function run() {
          case 'deployment':
          case 'release': {
             const releaseId = Number(getAzureDevOpsVariable('Release.ReleaseId'));
+            const definitionName = getAzureDevOpsVariable('System.Definitionname');
             await retainReleaseForever(teamProject, releaseId, connection);
             if (tl.getBoolInput('retainbuilds')) {
-               retainReleaseBuildArtifacts(teamProject, releaseId, connection);
+               retainReleaseBuildArtifacts(teamProject, releaseId, definitionName, connection);
             }
             break;
          }
@@ -63,7 +64,7 @@ async function retainReleaseForever(teamProject: string, releaseId: number, conn
    console.log(`Retained this release forever.`);
 }
 
-async function retainReleaseBuildArtifacts(teamProject: string, releaseId: number, connection: azdev.WebApi): Promise<void> {
+async function retainReleaseBuildArtifacts(teamProject: string, releaseId: number, definitionName: string, connection: azdev.WebApi): Promise<void> {
    const releaseApi: ra.IReleaseApi = await connection.getReleaseApi();
    const release: Release = await releaseApi.getRelease(teamProject, releaseId);
    if (!release.artifacts) return;
@@ -72,7 +73,7 @@ async function retainReleaseBuildArtifacts(teamProject: string, releaseId: numbe
       const buildId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.BuildId`));
       const definitionId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.DefinitionId`));
       const daysValid = calculateDaysValid(30*12)
-      const owner = `Retained by Release ${releaseId}.`
+      const owner = `Retained by Release ${definitionName} / ${releaseId}.`
       await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
    }
 }

@@ -20,13 +20,7 @@ When the option 'retainbuilds' is set to true, this also set the retention for t
   inputs:
     months: '36'
     retainbuilds: false
-   env:
-      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 ```
-
-## System AccessToken
-
-This task requires to provide the System Access Token. See [Microsoft's System.AccessToken explaination](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=classic#systemaccesstoken) for more information.
 
 ## Arguments
 
@@ -35,3 +29,11 @@ This task requires to provide the System Access Token. See [Microsoft's System.A
 | owner        | Pipelines  | $(System.TeamProject) - Retention | Set the owner of the retention lease.                                              |
 | months       | Pipelines  | 36 months                         | Set the lease period in number of Months. After this amount, the lease is deleted. |
 | retainbuilds | Release    | true                              | When set to true, this also retains the associated builds for 30 years             |
+
+## Permissions for Releases
+
+When you get the following error message running a release pipeline:
+
+'Error: VS402904: Access denied: User <UserId> does not have manage releases permission. Contact your release manager.'
+
+Please set the 'Manage Releases' permission for this (or all release pipelines) for user '<teamproject> Build Service (foxholenl)'  to 'allow'

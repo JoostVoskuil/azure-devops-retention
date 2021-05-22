@@ -26,7 +26,6 @@ When the option 'retainbuilds' is set to true, this also set the retention for t
 
 | Name         | Applies to | Default value                     | Description                                                                        |
 | ------------ | ---------- | --------------------------------- | ---------------------------------------------------------------------------------- |
-| owner        | Pipelines  | $(System.TeamProject) - Retention | Set the owner of the retention lease.                                              |
 | months       | Pipelines  | 36 months                         | Set the lease period in number of Months. After this amount, the lease is deleted. |
 | retainbuilds | Release    | true                              | When set to true, this also retains the associated builds for 30 years             |
 

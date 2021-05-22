@@ -27,7 +27,7 @@ async function run() {
             const definitionId = Number(tl.getVariable('System.DefinitionId'));
             const numberOfMonthsToRetain = Number(getAzureDevOpsInput('months'));
             const daysValid = calculateDaysValid(numberOfMonthsToRetain);
-            const owner = `Pipeline:${getOwner()}`;
+            const owner = `Pipeline:Set by Retention Task`;
             await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
             break;
          }
@@ -57,7 +57,7 @@ run();
 async function retainReleaseForever(teamProject: string, releaseId: number, connection: azdev.WebApi): Promise<void> {
    const releaseApi: ra.IReleaseApi = await connection.getReleaseApi();
    const releaseMetadata: ReleaseUpdateMetadata = {
-      comment: getOwner(),
+      comment: `Set by Retention Task`,
       keepForever: true
    };
    await releaseApi.updateReleaseResource(releaseMetadata, teamProject, releaseId);
@@ -90,10 +90,6 @@ async function setBuildRetentionLease(teamProject: string, runId: number, defini
    const buildApi: ba.IBuildApi = await connection.getBuildApi();
    await buildApi.addRetentionLeases(retentionLease, teamProject);
    console.log(`Retained pipeline run ${runId} for '${daysValid} days', including its tests and artifacts.`);
-}
-
-function getOwner(): string {
-   return tl.getInput('owner') || `${tl.getVariable("System.TeamProject")} Retention owner`;
 }
 
 function calculateDaysValid(numberOfMonths: number): number {

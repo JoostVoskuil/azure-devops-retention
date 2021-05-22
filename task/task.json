@@ -17,14 +17,6 @@
     },
     "inputs": [
         {
-            "name": "owner",
-            "type": "string",
-            "label": "Pipeline: Owner of the retention",
-            "defaultValue": "$(System.TeamProject) - Retention owner",
-            "helpMarkDown": "Specify the owner of the retention.",
-            "required": false
-        },
-        {
             "name": "months",
             "type": "number",
             "label": "Pipeline: Number of months to retain",

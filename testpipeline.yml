@@ -4,7 +4,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: retention@0
+- task: Retention@1
+  inputs:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'

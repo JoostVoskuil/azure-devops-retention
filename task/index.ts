@@ -72,8 +72,8 @@ async function retainReleaseBuildArtifacts(teamProject: string, releaseId: numbe
    for (const artifact of release.artifacts.filter(x => x.type === 'Build')) {
       const buildId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.BuildId`));
       const definitionId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.DefinitionId`));
-      const daysValid = calculateDaysValid(30*12)
-      const owner = `RM:'${definitionName}' / '${releaseId}'.`
+      const daysValid = calculateDaysForever();
+      const owner = `RM:${definitionName} / ${releaseId}`
       await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
    }
 }
@@ -89,7 +89,7 @@ async function setBuildRetentionLease(teamProject: string, runId: number, defini
    });
    const buildApi: ba.IBuildApi = await connection.getBuildApi();
    await buildApi.addRetentionLeases(retentionLease, teamProject);
-   console.log(`Retained pipeline run ${runId} for '${daysValid} days', including its tests and artifacts.`);
+   console.log(`Retained pipeline run ${runId}', including its tests and artifacts.`);
 }
 
 function calculateDaysValid(numberOfMonths: number): number {
@@ -98,6 +98,14 @@ function calculateDaysValid(numberOfMonths: number): number {
    const endDate = new Date();
    const todayDate = new Date();
    endDate.setMonth(endDate.getMonth() + numberOfMonths);
+   const timeDifference = endDate.getTime() - todayDate.getTime();
+   const dayDifference = timeDifference / (1000 * 3600 * 24);
+   return Math.round(dayDifference);
+}
+
+function calculateDaysForever(): number {
+   const endDate = new Date(3020,08,1);
+   const todayDate = new Date();
    const timeDifference = endDate.getTime() - todayDate.getTime();
    const dayDifference = timeDifference / (1000 * 3600 * 24);
    return Math.round(dayDifference);

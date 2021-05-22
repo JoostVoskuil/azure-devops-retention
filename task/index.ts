@@ -104,7 +104,7 @@ function calculateDaysValid(numberOfMonths: number): number {
 }
 
 function calculateDaysForever(): number {
-   const endDate = new Date(3020,08,1);
+   const endDate = new Date(3020,8,1);
    const todayDate = new Date();
    const timeDifference = endDate.getTime() - todayDate.getTime();
    const dayDifference = timeDifference / (1000 * 3600 * 24);

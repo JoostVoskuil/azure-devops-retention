@@ -3,7 +3,7 @@
     "id": "retention",
     "name": "Retention",
     "publisher": "foxholenl",
-    "description": "This extension provides tagging for pipelines, releases and git commits.",
+    "description": "This extension makes it possible to retain pipelines and releases (and cascading back to pipelines).",
     "version": "1.0.0",
     "public": false,
     "targets": [

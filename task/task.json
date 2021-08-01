@@ -1,15 +1,15 @@
 {
     "id": "9f5a40e5-1bd9-4503-9124-5684e504c5d6",
     "name": "Retention",
-    "friendlyName": "Retention",
-    "description": "Set the retention for this Pipeline or Release.",
+    "friendlyName": "Retain Release and Pipelines (incl. cascade)",
+    "description": "Set the retention for this Pipeline or Release. Allows you to go back to a consumed artifact from a release.",
     "helpMarkDown": "[More information](https://github.com/JoostVoskuil/azure-devops-retention)",
     "category": "Utility",
     "visibility": [
         "Build",
         "Release"
     ],
-    "author": "Joost Voskuil (joost@foxhole.nl)",
+    "author": "Foxhole",
     "version": {
         "Major": 1,
         "Minor": 0,
@@ -19,9 +19,9 @@
         {
             "name": "months",
             "type": "number",
-            "label": "Pipeline: Number of months to retain",
+            "label": "Pipeline: Number of months to retain.",
             "defaultValue": 0,
-            "helpMarkDown": "Specify the number of months to retain the build.",
+            "helpMarkDown": "Specify the number of months to retain the build. 0 for Indefinitely.",
             "required": false
         },
         {

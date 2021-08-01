@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "retention",
-    "name": "Retention",
+    "name": "Retain Release and Pipelines (incl. cascade)",
     "publisher": "foxholenl",
     "description": "This extension makes it possible to retain pipelines and releases (and cascading back to pipelines).",
     "version": "1.0.0",

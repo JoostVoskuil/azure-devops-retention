@@ -93,9 +93,9 @@ async function setBuildRetentionLease(teamProject: string, runId: number, defini
    });
    const buildApi: ba.IBuildApi = await connection.getBuildApi();
    await buildApi.addRetentionLeases(retentionLease, teamProject);
-   const daysValidMessage: string = (daysValid === 40000) ? 'forever' : daysValid.toString()
+   const daysValidMessage: string = (daysValid === 40000) ? 'forever' : `${daysValid.toString()} days`
 
-   console.log(`Retained pipeline run ${runId} for ${daysValidMessage} days.`);
+   console.log(`Retained pipeline run ${runId} for ${daysValidMessage}.`);
 }
 
 function calculateDaysValid(numberOfMonths: number): number {

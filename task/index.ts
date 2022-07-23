@@ -76,7 +76,7 @@ async function retainReleaseBuildArtifacts(teamProject: string, releaseId: numbe
    for (const artifact of release.artifacts.filter(x => x.type === 'Build')) {
       const buildId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.BuildId`));
       const definitionId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.DefinitionId`));
-      const daysValid = 36501;
+      const daysValid = 40000;
       const owner = `RM:${definitionName} / ${releaseId}`
       await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
    }
@@ -93,7 +93,7 @@ async function setBuildRetentionLease(teamProject: string, runId: number, defini
    });
    const buildApi: ba.IBuildApi = await connection.getBuildApi();
    await buildApi.addRetentionLeases(retentionLease, teamProject);
-   const daysValidMessage: string = (daysValid === 36501) ? 'forever' : daysValid.toString()
+   const daysValidMessage: string = (daysValid === 40000) ? 'forever' : daysValid.toString()
 
    console.log(`Retained pipeline run ${runId} for ${daysValidMessage} days.`);
 }

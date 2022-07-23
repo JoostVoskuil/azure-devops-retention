@@ -28,10 +28,10 @@ async function run() {
             const numberOfMonthsToRetain = Number(getAzureDevOpsInput('months'));
             
             let daysValid = 0;
-            if (numberOfMonthsToRetain === 0) daysValid = calculateDaysForever();
+            if (numberOfMonthsToRetain === 0) daysValid = 40000;
             else daysValid = calculateDaysValid(numberOfMonthsToRetain);
 
-            const owner = `Pipeline:'Retention Task'`;
+            const owner = `Pipeline Retention Task`;
             await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
             break;
          }
@@ -51,8 +51,8 @@ async function run() {
       }
       tl.setResult(tl.TaskResult.Succeeded, '');
    }
-   catch (err) {
-      tl.setResult(tl.TaskResult.Failed, err)
+   catch (err: any) {
+      tl.setResult(tl.TaskResult.Failed, err.message)
    }
 }
 
@@ -61,7 +61,7 @@ run();
 async function retainReleaseForever(teamProject: string, releaseId: number, connection: azdev.WebApi): Promise<void> {
    const releaseApi: ra.IReleaseApi = await connection.getReleaseApi();
    const releaseMetadata: ReleaseUpdateMetadata = {
-      comment: `Set by Retention Task`,
+      comment: `Retained by custom retention task`,
       keepForever: true
    };
    await releaseApi.updateReleaseResource(releaseMetadata, teamProject, releaseId);
@@ -76,7 +76,7 @@ async function retainReleaseBuildArtifacts(teamProject: string, releaseId: numbe
    for (const artifact of release.artifacts.filter(x => x.type === 'Build')) {
       const buildId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.BuildId`));
       const definitionId = Number(tl.getVariable(`Release.Artifacts.${artifact.alias}.DefinitionId`));
-      const daysValid = calculateDaysForever();
+      const daysValid = 40000;
       const owner = `RM:${definitionName} / ${releaseId}`
       await setBuildRetentionLease(teamProject, buildId, definitionId, daysValid, owner, connection);
    }
@@ -93,7 +93,9 @@ async function setBuildRetentionLease(teamProject: string, runId: number, defini
    });
    const buildApi: ba.IBuildApi = await connection.getBuildApi();
    await buildApi.addRetentionLeases(retentionLease, teamProject);
-   console.log(`Retained pipeline run ${runId}, including its tests and artifacts.`);
+   const daysValidMessage: string = (daysValid === 40000) ? 'forever' : `${daysValid.toString()} days`
+
+   console.log(`Retained pipeline run ${runId} for ${daysValidMessage}.`);
 }
 
 function calculateDaysValid(numberOfMonths: number): number {
@@ -102,14 +104,6 @@ function calculateDaysValid(numberOfMonths: number): number {
    const endDate = new Date();
    const todayDate = new Date();
    endDate.setMonth(endDate.getMonth() + numberOfMonths);
-   const timeDifference = endDate.getTime() - todayDate.getTime();
-   const dayDifference = timeDifference / (1000 * 3600 * 24);
-   return Math.round(dayDifference);
-}
-
-function calculateDaysForever(): number {
-   const endDate = new Date(3020,8,1);
-   const todayDate = new Date();
    const timeDifference = endDate.getTime() - todayDate.getTime();
    const dayDifference = timeDifference / (1000 * 3600 * 24);
    return Math.round(dayDifference);

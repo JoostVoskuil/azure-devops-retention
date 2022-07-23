@@ -28,7 +28,7 @@ async function run() {
             const numberOfMonthsToRetain = Number(getAzureDevOpsInput('months'));
             
             let daysValid = 0;
-            if (numberOfMonthsToRetain === 0) daysValid = 36501;
+            if (numberOfMonthsToRetain === 0) daysValid = 40000;
             else daysValid = calculateDaysValid(numberOfMonthsToRetain);
 
             const owner = `Pipeline Retention Task`;

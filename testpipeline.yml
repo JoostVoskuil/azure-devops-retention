@@ -6,9 +6,6 @@ pool:
 steps:
 - task: Retention@1
   inputs:
-    months: '1'
-- task: Retention@1
-  inputs:
     months: '0'
 - task: PublishBuildArtifacts@1
   inputs:

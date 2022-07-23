@@ -95,7 +95,7 @@ async function setBuildRetentionLease(teamProject: string, runId: number, defini
    await buildApi.addRetentionLeases(retentionLease, teamProject);
    const daysValidMessage: string = (daysValid === 36501) ? 'forever' : daysValid.toString()
 
-   console.log(`Retained pipeline run ${runId} for ${daysValidMessage}.`);
+   console.log(`Retained pipeline run ${runId} for ${daysValidMessage} days.`);
 }
 
 function calculateDaysValid(numberOfMonths: number): number {

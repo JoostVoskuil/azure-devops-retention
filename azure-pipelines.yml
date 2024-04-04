@@ -53,7 +53,6 @@ stages:
         publisherId: 'foxholenl'
         extensionId: 'retention'
         extensionName: 'Retention'
-        extensionTag: '-build'
         extensionVersion: '$(Build.BuildNumber)'
         updateTasksVersion: true
         updateTasksVersionType: patch

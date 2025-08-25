@@ -64,7 +64,6 @@ stages:
         publishLocation: pipeline
         targetPath: '$(packageStep.Extension.OutputPath)'
         artifact: 'vsix'
-      condition: succeededOrFailed()
 
 - stage: Test
   displayName: 'Publish to Marketplace (private)'
